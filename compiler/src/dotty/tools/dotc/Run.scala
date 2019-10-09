@@ -127,6 +127,7 @@ class Run(comp: Compiler, ictx: Context) extends ImplicitRunInfo with Constraint
     case NonFatal(ex) =>
       if units != null then runContext.echo(i"exception occurred while compiling $units%, %")
       else runContext.echo(s"exception occurred while compiling ${fileNames.mkString(", ")}")
+      runContext.echo(s"$ex\n    ${ex.getStackTrace.mkString("\n    ")}")
       throw ex
   }
 
