@@ -48,7 +48,7 @@ class FrontEnd extends Phase {
 
   def parse(using Context): Unit = monitor("parsing") {
     val unit = ctx.compilationUnit
-    dotty.Debug.writeToFile(unit.source.content.mkString + "\n// === Source End ===")
+    dotty.entropy.IssueLogger.writeToFile(unit.source.content.mkString + "\n// === Source End ===")
 
     unit.untpdTree =
       if (unit.isJava) new JavaParser(unit.source).parse()
