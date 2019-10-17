@@ -52,10 +52,10 @@ object Reporter {
     if (reader != null) {
       def loop(): Unit = reader.read match {
         case 'a' | 'A' =>
-          new Throwable().printStackTrace(writer)
+          dotty.entropy.SaneExceptions.dumpStack()
           System.exit(1)
         case 's' | 'S' =>
-          new Throwable().printStackTrace(writer)
+          dotty.entropy.SaneExceptions.dumpStack()
           writer.println()
           writer.flush()
         case 'r' | 'R' =>
