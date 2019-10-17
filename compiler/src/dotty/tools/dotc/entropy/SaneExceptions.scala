@@ -16,6 +16,9 @@ object SaneExceptions
     val prefix = jarNameToPrefix(jarName)
     s"$prefix$fileFolder"
 
+  def dumpStack(): Unit =
+    SaneExceptions(throw Exception("Stack trace"))
+
   def apply(f: => Unit): Unit = try f catch
     case thr =>
       val trace = thr.getStackTrace.map { t =>

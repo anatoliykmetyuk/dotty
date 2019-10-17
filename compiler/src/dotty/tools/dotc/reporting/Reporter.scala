@@ -127,7 +127,7 @@ trait Reporting { thisCtx: Context =>
   def error(msg: Message, pos: SourcePosition = NoSourcePosition, sticky: Boolean = false): Unit = {
     val fullPos = addInlineds(pos)
     reporter.report(if (sticky) new StickyError(msg, fullPos) else new Error(msg, fullPos))
-    if thisCtx.settings.YdebugError.value then Thread.dumpStack()
+    if thisCtx.settings.YdebugError.value then dotty.entropy.SaneExceptions.dumpStack()
   }
 
   def error(ex: TypeError, pos: SourcePosition): Unit = {
