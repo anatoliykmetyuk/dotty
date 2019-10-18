@@ -5,8 +5,8 @@ import scala.collection.mutable.{ Map => MutMap }
 import dotty.tools.dotc.core.Contexts.Context
 
 object IssueLogger
-  val writtenFiles: MutMap[String, File] = MutMap.empty
-  var lastEncounteredName = ""
+  private[this] val writtenFiles: MutMap[String, File] = MutMap.empty
+  private[this] var lastEncounteredName = ""
 
   def writeToFile(str: String)(implicit ctx: Context): Unit =
     val outDirPath = ctx.settings.YlogToFile.value
