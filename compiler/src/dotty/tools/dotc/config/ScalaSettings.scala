@@ -183,6 +183,10 @@ class ScalaSettings extends Settings.SettingGroup {
   val YinstrumentClosures: Setting[Boolean] = BooleanSetting("-Yinstrument-closures", "Add instrumentation code that counts closure creations.")
   val YinstrumentAllocations: Setting[Boolean] = BooleanSetting("-Yinstrument-allocations", "Add instrumentation code that counts allocations.")
 
+  /** E-Entropy mod settings */
+  val EtraceInsideMethod: Setting[String] = StringSetting("-Etrace-inside-method", "method_name", "Only output the trace to the console if the call stack contains the specified method", "")
+  val EinspectAtHash: Setting[String] = StringSetting("-Einspect-at-hash", "hash", "Do the task only when at the point identified by the hash provided", "")
+
   /** Dottydoc specific settings */
   val siteRoot: Setting[String] = StringSetting(
     "-siteroot",
