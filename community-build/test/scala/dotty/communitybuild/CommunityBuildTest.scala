@@ -354,7 +354,7 @@ class CommunityBuildTest:
   @Test def xmlInterpolator = projects.xmlInterpolator.run()
   @Test def effpi = projects.effpi.run()
   @Test def sconfig = projects.sconfig.run()
-  @Test def zio = projects.zio.run()
+  // @Test def zio = projects.zio.run()
   @Test def munit = projects.munit.run()
 end CommunityBuildTest
 
