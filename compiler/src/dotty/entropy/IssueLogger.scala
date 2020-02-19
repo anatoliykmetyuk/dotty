@@ -4,7 +4,7 @@ import java.io.{ File, PrintWriter, FileWriter }
 import scala.collection.mutable.{ Map => MutMap }
 import dotty.tools.dotc.core.Contexts.Context
 
-object IssueLogger
+object IssueLogger:
   private[this] val writtenFiles: MutMap[String, File] = MutMap.empty
   private[this] var lastEncounteredName = ""
 

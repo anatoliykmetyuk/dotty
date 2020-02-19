@@ -11,7 +11,7 @@ import dotty.tools.dotc.core.Contexts.Context
 /**
  * Selective tracing for Dotty
  */
-object Neon
+object Neon:
   private val log = collection.mutable.ListBuffer.empty[String]
 
   private def currentHash: String =

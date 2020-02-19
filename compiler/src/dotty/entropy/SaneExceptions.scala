@@ -3,7 +3,7 @@ package dotty.entropy
 import java.io.File
 
 
-object SaneExceptions
+object SaneExceptions:
   def jarNameToPrefix(name: String): String =
     if name.startsWith("dotty-compiler") then "compiler/src"
     else if name.startsWith("dotty-library") then "library/src"
