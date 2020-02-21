@@ -20,9 +20,12 @@ object Neon:
     val digest: Array[Byte] = md.digest()
     DatatypeConverter.printHexBinary(digest).toLowerCase
 
+  private def (x: StackTraceElement) fullMethodName: String =
+    s"${x.getClassName}.${x.getMethodName}"
+
   def trace(msg: String)(using ctx: Context): Unit =
     val traceInsideMethod = ctx.settings.EtraceInsideMethod.value
-    if traceInsideMethod.isEmpty || Thread.currentThread.getStackTrace.exists(_.getMethodName.contains(traceInsideMethod))
+    if traceInsideMethod.isEmpty || Thread.currentThread.getStackTrace.exists(_.fullMethodName.contains(traceInsideMethod))
       log.append(msg)
       if ctx.settings.EinspectAtHash.value.isEmpty
         println(s"""\u001b[43;1m\u001b[30m${currentHash}\u001b[0m $msg""")
