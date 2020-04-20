@@ -1,0 +1,21 @@
+name: CI Failure Watchdog
+
+on: check_suite
+
+jobs:
+  create_issue:
+    runs-on: self-hosted
+    container: akmetiuk/dotty:2020-02-12
+
+    if:
+      github.event.check_suite.head_branch == "master" &&  # Branch is master
+      github.event.check_suite.status == "completed" &&
+      github.event.check_suite.conclusion == "cancelled"  # Status is failed
+
+    steps:
+      - uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: .github/workflows/ci_failure_watchdog_template.md
+
