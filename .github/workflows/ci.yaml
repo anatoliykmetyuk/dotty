@@ -109,7 +109,11 @@ jobs:
 
       - name: Publish Release
         run: |
-          ./project/scripts/sbt dist-bootstrapped/packArchive
+          # ./project/scripts/sbt dist-bootstrapped/packArchive
+          mkdir -pv dist-bootstrapped/target/
+          echo "Dummy" > dist-bootstrapped/target/dotty-0.30.0.zip
+          echo "Dummy" > dist-bootstrapped/target/dotty-0.30.0.tar.gz
+
           sha256sum dist-bootstrapped/target/dotty-* > dist-bootstrapped/target/sha256sum.txt
           # ./project/scripts/sbtPublish ";project dotty-bootstrapped ;publishSigned ;sonatypeBundleRelease"
           echo "Success"
