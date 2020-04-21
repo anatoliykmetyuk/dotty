@@ -8,62 +8,9 @@ env:
   DOTTY_CI_RUN: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    container: akmetiuk/dotty:2020-02-12
-
-    steps:
-      - name: Test
-        run: echo "Success"
-
-  test_bootstrapped:
-    runs-on: ubuntu-latest
-    container: akmetiuk/dotty:2020-02-12
-
-    steps:
-      - name: Test
-        run: echo "Success"
-
-  community_build:
-    runs-on: ubuntu-latest
-    container: akmetiuk/dotty:2020-02-12
-
-    steps:
-      - name: Test
-        run: echo "Success"
-
-  test_sbt:
-    runs-on: ubuntu-latest
-    container: akmetiuk/dotty:2020-02-12
-    if: (
-          github.event_name == 'push' &&
-          startsWith(github.event.ref, 'refs/tags/')
-        ) ||
-        github.event_name == 'schedule'
-
-    steps:
-      - name: Test
-        run: echo "Success"
-
-  test_java11:
-    runs-on: ubuntu-latest
-    container: akmetiuk/dotty:2020-02-12
-    if: (
-          github.event_name == 'push' &&
-          startsWith(github.event.ref, 'refs/tags/')
-        ) ||
-        github.event_name == 'schedule'
-
-    steps:
-      - name: Test
-        run: |
-          echo ${{ github.event.ref }}
-          echo ${{ startsWith(github.event.ref, 'refs/tags/sbt-dotty-') }}
-
   publish_release:
     runs-on: ubuntu-latest
     container: akmetiuk/dotty:2020-02-12
-    needs: [test, test_bootstrapped, community_build, test_sbt, test_java11]
     if: github.event_name == 'push' &&
         startsWith(github.event.ref, 'refs/tags/') &&
         !startsWith(github.event.ref, 'refs/tags/sbt-dotty-')
@@ -181,7 +128,6 @@ jobs:
   publish_sbt_release:
     runs-on: ubuntu-latest
     container: akmetiuk/dotty:2020-02-12
-    needs: [test, test_bootstrapped, community_build, test_sbt, test_java11]
     if: github.event_name == 'push' &&
         startsWith(github.event.ref, 'refs/tags/sbt-dotty-')
 
