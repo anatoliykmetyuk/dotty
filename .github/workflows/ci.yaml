@@ -56,7 +56,10 @@ jobs:
 
     steps:
       - name: Test
-        run: echo "Success"
+        run: |
+          echo ${{ github.ref }}
+          echo ${{ github.event.ref }}
+          echo ${{ startsWith(github.ref, 'sbt-dotty-') }}
 
   publish_release:
     runs-on: ubuntu-latest
