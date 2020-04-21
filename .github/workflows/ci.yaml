@@ -38,7 +38,6 @@ jobs:
       PGP_SECRET: ${{ secrets.PGP_SECRET }}  # Export your private and public PGP key to an *.asc file, take the file's contents as a string
       SONATYPE_PW: ${{ secrets.SONATYPE_PW }}
       SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-      RELEASE_TAG: ${GITHUB_REF#*refs/tags/}
 
     steps:
       - name: Checkout cleanup script
@@ -60,6 +59,7 @@ jobs:
           sha256sum dist-bootstrapped/target/dotty-* > dist-bootstrapped/target/sha256sum.txt
           # ./project/scripts/sbtPublish ";project dotty-bootstrapped ;publishSigned ;sonatypeBundleRelease"
           echo "Success"
+          echo "::set-env name=RELEASE_TAG::${GITHUB_REF#*refs/tags/}"
 
       - name: Create GitHub Release
         id: create_gh_release
