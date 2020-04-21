@@ -8,6 +8,23 @@ env:
   DOTTY_CI_RUN: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: akmetiuk/dotty:2020-02-12
+    env:
+      RELEASE_TAG: ${GITHUB_REF#*refs/tags/}
+
+    steps:
+      - name: Debug
+        run: |
+          echo "Via env: ${RELEASE_TAG}"
+          echo "Via bash: ${GITHUB_REF#*refs/heads/}"
+          echo "::set-env name=RELEASE_TAG_2::${GITHUB_REF#*refs/heads/}"
+
+      - name: Debug 2
+        run: |
+          echo "Via other step: $RELEASE_TAG_2"
+
   publish_release:
     runs-on: ubuntu-latest
     container: akmetiuk/dotty:2020-02-12
