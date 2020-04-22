@@ -7,7 +7,7 @@ jobs:
     runs-on: self-hosted
     container: akmetiuk/dotty:2020-02-12
 
-    if: github.event.check_suite.head_branch == 'master' &&
+    if: github.event.check_suite.head_branch == 'ci-release-test' &&
         github.event.check_suite.status == 'completed' &&
         github.event.check_suite.conclusion == 'cancelled'
 
