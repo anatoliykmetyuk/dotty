@@ -29,6 +29,8 @@ jobs:
       - name: Deploy Website
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
+          ACCESS_TOKEN: ${{ secrets.BOT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
+          BRANCH: gh-pages-test
           FOLDER: docs/_site
+          REPOSITORY_NAME: lampepfl/dotty-website
