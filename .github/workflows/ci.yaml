@@ -27,10 +27,9 @@ jobs:
           ./project/scripts/genDocs -doc-snapshot
 
       - name: Deploy Website
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ACCESS_TOKEN: ${{ secrets.BOT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages-test
-          FOLDER: docs/_site
-          REPOSITORY_NAME: lampepfl/dotty-website
+          personal_token: ${{ secrets.BOT_TOKEN }}
+          publish_dir: docs/_site
+          external_repository: anatoliykmetyuk/dummy-docs
+          publish_branch: master

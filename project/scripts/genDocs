@@ -16,10 +16,10 @@ if [ -d "$PREVIOUS_SNAPSHOTS_DIR" ]; then
 fi
 
 mkdir -pv "$PREVIOUS_SNAPSHOTS_DIR"
-git remote add doc-remote "https://github.com/lampepfl/dotty-website.git"
-git fetch doc-remote gh-pages
-git checkout gh-pages
-(cp -r 0.*/ "$PREVIOUS_SNAPSHOTS_DIR"; true)  # Don't fail if no `0.*` found to copy
+git remote add doc-remote "https://github.com/anatoliykmetyuk/dummy-docs.git"
+git fetch doc-remote master
+git checkout master
+(cp -vr 0.*/ "$PREVIOUS_SNAPSHOTS_DIR"; true)  # Don't fail if no `0.*` found to copy
 git checkout "$GIT_HEAD"
 
 ### Generate the current snapshot of the website ###
@@ -27,7 +27,7 @@ git checkout "$GIT_HEAD"
 SBT="$SCRIPT_DIR/sbt"
 # "$SBT" "dotty-bootstrapped/genDocs $GENDOC_EXTRA_ARGS"
 mkdir -pv "$SITE_OUT_DIR"
-echo "GIT_HEAD" >> "$SITE_OUT_DIR/test"
+echo "$GIT_HEAD" >> "$SITE_OUT_DIR/test"
 
 # make sure that the previous command actually succeeded
 if [ ! -d "$SITE_OUT_DIR" ]; then
@@ -36,5 +36,6 @@ if [ ! -d "$SITE_OUT_DIR" ]; then
 fi
 
 ### Move previous versions' snapshots to _site ###
-mv "$PREVIOUS_SNAPSHOTS_DIR/*" "$SITE_OUT_DIR"
+ls -l "$PREVIOUS_SNAPSHOTS_DIR"
+mv -v "$PREVIOUS_SNAPSHOTS_DIR"/* "$SITE_OUT_DIR"
 rm -rf "$PREVIOUS_SNAPSHOTS_DIR"
