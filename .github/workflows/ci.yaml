@@ -308,9 +308,16 @@ jobs:
           key: ${{ runner.os }}-general-${{ hashFiles('**/build.sbt') }}
           restore-keys: ${{ runner.os }}-general-
 
-      - name: Nightly Documentation
+      - name: Generate Website
         run: |
           ./project/scripts/genDocs -doc-snapshot
+
+      - name: Deploy Website
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs/_site
 
   publish_release:
     runs-on: self-hosted
