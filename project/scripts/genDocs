@@ -23,7 +23,9 @@ git checkout "$GIT_HEAD"
 ### Generate the current snapshot of the website ###
 # this command will generate docs in $PWD/docs/_site
 SBT="$SCRIPT_DIR/sbt"
-"$SBT" "dotty-bootstrapped/genDocs $GENDOC_EXTRA_ARGS"
+# "$SBT" "dotty-bootstrapped/genDocs $GENDOC_EXTRA_ARGS"
+mkdir -pv "$SITE_OUT_DIR"
+echo "GIT_HEAD" >> "$SITE_OUT_DIR/test"
 
 # make sure that the previous command actually succeeded
 if [ ! -d "$SITE_OUT_DIR" ]; then
