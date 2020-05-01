@@ -19,14 +19,17 @@ object SaneExceptions:
   def getStack(thr: Throwable): String =
     val trace = thr.getStackTrace.map { t =>
       val cn = t.getClassName.replace('.', '/') + ".class"
-      val classFile = this.getClass.getClassLoader.getResource(cn).toString
+      val classFile = Option(this.getClass.getClassLoader.getResource(cn)).map(_.toString)
 
-      val scalaFile = s"${classFileToPackageSrc(classFile)}/${t.getFileName}"
+      val scalaFile = classFile.map(classFile =>
+        s"${classFileToPackageSrc(classFile)}/${t.getFileName}")
+        .getOrElse("<no_source>")
+
       val classNameShort = t.getClassName.reverse.takeWhile(_ != '.').reverse
 
       s"\u001b[44;1m$classNameShort.${t.getMethodName}\u001b[0m $scalaFile:${t.getLineNumber}"
     }.mkString("\n    ")
-    s"\u001b[48;5;88m${thr.getMessage}\u001b[0m\n    $trace"
+    s"\u001b[48;5;88m${thr}: ${thr.getMessage}\u001b[0m\n    $trace"
 
   def getStack(msg: String = "Stack trace"): String =
     getStack(Exception(msg))
@@ -34,5 +37,7 @@ object SaneExceptions:
   def dumpStack(msg: String = "Stack trace"): Unit =
     SaneExceptions(throw Exception(msg))
 
+  def print(thr: Throwable) = println(getStack(thr))
+
   def apply(f: => Unit): Unit = try f catch
-    case thr => println(getStack(thr))
+    case thr => SaneExceptions.print(thr)
